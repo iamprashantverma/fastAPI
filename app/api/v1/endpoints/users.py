@@ -3,7 +3,7 @@ from fastapi import Path
 from sqlalchemy.orm import Session
 from app.schemas.user import UserCreate, UserResponse
 from app.api.deps import get_db
-from app.services.user_service import create_user_service,get_user_service 
+from app.services.user_service import create_user_service,get_user_service ,get_all_user_service
 
 router = APIRouter()
 
@@ -14,3 +14,7 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
 @router.get("/{username}")
 def get_user(username: str = Path(description = "Enter the username", examples= "itsPrashant"), db:Session = Depends(get_db) ):
     return get_user_service(db,username)
+
+@router.get("/",response_model=list[UserResponse])
+def get_all_user(db:Session = Depends(get_db)):
+    return get_all_user_service(db)

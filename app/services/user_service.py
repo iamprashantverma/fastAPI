@@ -2,7 +2,8 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from app.schemas.user import UserCreate
 from app.models.user import User
-from app.crud.user import get_user_by_username, create_user_db
+from app.schemas.auth import LoginReq,LoginResp
+from app.crud.user import get_user_by_username, create_user_db, get_all_user
 from app.core.security import hash_password
 
 def create_user_service(db: Session, user: UserCreate):
@@ -25,3 +26,8 @@ def create_user_service(db: Session, user: UserCreate):
 
 def get_user_service(db:Session, username:str):
     return get_user_by_username(db,username)
+
+def get_all_user_service(db:Session):
+    return get_all_user(db)
+    
+        
