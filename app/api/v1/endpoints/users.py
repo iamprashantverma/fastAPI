@@ -5,7 +5,7 @@ from app.schemas.user import UserCreate, UserResponse
 from app.api.deps import get_db
 from app.services.user_service import create_user_service,get_user_service ,get_all_user_service
 
-router = APIRouter()
+router = APIRouter(tags=["users"])
 
 @router.post("/signup", response_model=UserResponse)
 def signup(user: UserCreate, db: Session = Depends(get_db)):
